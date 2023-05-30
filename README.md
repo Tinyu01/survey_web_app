@@ -1,0 +1,1 @@
+This is a Repository for a web app that can be placed in a public space where people can fill out a survey. Many people would fill out the survey so that we can analyse the data collected to make sense of it. The application to be developed is one for collecting survey data about people’s lifestyle preferences.

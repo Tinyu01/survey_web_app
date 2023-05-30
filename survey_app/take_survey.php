@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Taking Survey Page</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <style type="text/css">
@@ -264,7 +264,8 @@
     //set array
     $arraysc = array();
     $arrayho = array();
-;    $clientfood = array();
+    $arrayfood = array();
+    $clientfood = array();
     
     
     //run querys
@@ -272,17 +273,12 @@
     $queryho = "SELECT * FROM hobby ORDER BY HobbyID ASC";
     $queryfood = "SELECT * FROM `food` ORDER BY `FoodID` ASC";
     
-    //run insert
-    $insetclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
+    
 
     $resultsc= mysqli_query($conn,$querysc);
     $resultho = mysqli_query($conn,$queryho);
     $resultfood = mysqli_query($conn,$queryfood);
 
-    //inseting array to data database
-    $resultclientin = mysqli_query($conn,$insetclient);
-    
-    
     //look through query
     while($rowsc = mysqli_fetch_array($resultsc)) {
         //add each row returned into an array
@@ -323,7 +319,7 @@
     if($_SERVER["REQUEST_METHOD"]=="POST") {
 
       if(empty($_POST["pizza"]) && empty($_POST["pasta"]) && empty($_POST["pap-wors"]) && empty($_POST["chicken-stir"]) 
-      empty($_POST["beef-stir"]) && empty($_POST["other"]) ) {
+      && empty($_POST["beef-stir"]) && empty($_POST["other"]) ) {
 
         $chother = "At least check other";
         
@@ -331,9 +327,12 @@
         echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
 
       }else {
+
+
         
         if(isset($_POST['pizza'])) { 
-
+          
+          
           $chpizza = mysqli_real_escape_string($conn,$_POST['pizza']);
 
         } elseif(isset($_POST['pasta'])) {
@@ -358,7 +357,12 @@
 
         }
         
-        
+        //run insert
+        $insetclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
+
+        //inseting array to data database
+        $resultclientin = mysqli_query($conn,$insetclient);
+
         echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
       }
 
@@ -381,11 +385,11 @@
 
 
         echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
-      }
+      }*/
       
 
 
-    }*/
+    }
 
     
 
@@ -408,4 +412,3 @@
   } 
 
 ?>
-
