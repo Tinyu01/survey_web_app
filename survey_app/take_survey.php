@@ -271,7 +271,7 @@
     //run querys
     $querysc = "SELECT * FROM scale ORDER BY ScaleID ASC";
     $queryho = "SELECT * FROM hobby ORDER BY HobbyID ASC";
-    $queryfood = "SELECT * FROM `food` ORDER BY `FoodID` ASC";
+    $queryfood = "SELECT * FROM food ORDER BY FoodID ASC";
     
     
 
@@ -281,19 +281,22 @@
 
     //look through query
     while($rowsc = mysqli_fetch_array($resultsc)) {
-        //add each row returned into an array
-        $arraysc[] = $rowsc;
+
+      //add each row returned into an array
+      $arraysc[] = $rowsc;
     
-        echo $rowsc['ScaleName']; 
+      echo $rowsc['ScaleName']; 
     }
 
     while($rowho = mysqli_fetch_array($resultho)) {
+
       //add each row returned into an array
       $arrayho[] = $rowho;
       echo $rowho['HobbyName'];
     }
     
     while($rowfood = mysqli_fetch_array($resultfood)) {
+
       //add each row returned into an array
       $arrayfood[] = $rowfood;
       echo $rowfood['FoodName'];
@@ -313,6 +316,10 @@
     $rtv = "";
     $rradio = "";
 
+    //count variables
+    $foofcount=0;
+
+
 
 
     //checking if radio button are all checked
@@ -327,41 +334,124 @@
         echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
 
       }else {
+        
+        //run insert
+        $insertclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
+        $intclient = mysqli_query($conn,$queryclient);
 
+        //selecting from client table
+        $queryclient = "SELECT * FROM client WHERE Contact='$contact'";
+
+        $resultclient = mysqli_query($conn,$queryclient);
+
+        $rowclient = mysqli_fetch_array($resultclient)
+
+        $clienyid = $rowclient['ClientID'];
+
+        $clienycontact = $rowclient['Contact'];
 
         
         if(isset($_POST['pizza'])) { 
           
-          
           $chpizza = mysqli_real_escape_string($conn,$_POST['pizza']);
+
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chpizza'";
+          
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName']; 
+          
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
 
         } elseif(isset($_POST['pasta'])) {
 
           $chpasta = mysqli_real_escape_string($conn,$_POST['pasta']);
 
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chpasta'";
+
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName'];
+
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
+
         } elseif(isset($_POST['pap-wors'])) {
 
           $chpap = mysqli_real_escape_string($conn,$_POST['pap-wors']);
+
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chpap'";
+          
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName'];
+
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
 
         } elseif(isset($_POST['chicken-stir'])) {
 
           $chchicken = mysqli_real_escape_string($conn,$_POST['chicken-stir']);
 
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chchicken'";
+
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName'];
+
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
+
+
         } elseif(isset($_POST['beef-stir'])) {
 
           $chbeef = mysqli_real_escape_string($conn,$_POST['beef-stir']);
+
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chbeef'";
+
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName'];
+
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
+
 
         } else {
 
           $chother = mysqli_real_escape_string($conn,$_POST['other']);
 
-        }
-        
-        //run insert
-        $insetclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
+          $queryfood = "SELECT * FROM food WHERE FoodID='$chother'";
 
-        //inseting array to data database
-        $resultclientin = mysqli_query($conn,$insetclient);
+          $resultfood = mysqli_query($conn,$queryfood);
+
+          $rowfood = mysqli_fetch_array($resultfood)
+
+          $chpizza = $rowfood['FoodID'];
+          $chname =  $rowfood['FoodName'];
+
+          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+          $inmeal = mysqli_query($conn,$insertmeal);
+
+        }
+
+           
 
         echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
       }
