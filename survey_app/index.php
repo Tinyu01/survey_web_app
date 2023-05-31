@@ -84,15 +84,15 @@
 
 <?php
 
-if(isset($_POST['survey'])) {
+    if(isset($_POST['survey'])) {
 
-    echo '<script type="text/JavaScript"> alert("You are leaving Main page to take our survey"); window.location= "take_survey.php" ; </script>';
+        echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
    
-} 
+    } 
 
-if(isset($_POST['results'])) {
+    if(isset($_POST['results'])) {
    
-    echo '<script type="text/JavaScript"> alert("You are leaving the main page to view survey results"); window.location= "output-page.php" ; </script>';
-} 
+        echo '<script type="text/JavaScript"> window.location= "output-page.php" ; </script>';
+    } 
 
 ?>

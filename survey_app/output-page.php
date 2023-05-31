@@ -202,7 +202,7 @@
 
     if(isset($_POST['ok'])) {
 
-        echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
+        echo '<script type="text/JavaScript"> window.location= "index.php" ; </script>';
    
     } 
 

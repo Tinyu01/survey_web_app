@@ -334,170 +334,261 @@
         echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
 
       }else {
-        
-        //run insert
-        $insertclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
-        $intclient = mysqli_query($conn,$queryclient);
 
-        //selecting from client table
-        $queryclient = "SELECT * FROM client WHERE Contact='$contact'";
+        if(empty($_POST["eatout"]) || empty($_POST["watchmovie"]) || empty($_POST["watchtv"]) || empty($_POST["listenradio"])) {
 
-        $resultclient = mysqli_query($conn,$queryclient);
-
-        $rowclient = mysqli_fetch_array($resultclient)
-
-        $clienyid = $rowclient['ClientID'];
-
-        $clienycontact = $rowclient['Contact'];
-
-        
-        if(isset($_POST['pizza'])) { 
+          $reat = " Click at least one radio button in row 1 in the table' '";
+          $rmovie = "Click at least one radio button in row 2 in the table' '";
+          $rtv = "Click at least one radio button in row 3 in the ' ' ";
+          $rradio = "Click at least one radio button in row 1 in the table' '";
+  
+          echo '<script type="text/javaScript">alert("'.$reat.$rmovie.$rtv.$rradio.'");</script>';
+          echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
+  
+        }else {
           
-          $chpizza = mysqli_real_escape_string($conn,$_POST['pizza']);
+          //run insert
+          $insertclient = "INSERT INTO client (Contact, Surname, Names, Age, TodayDate) VALUES ('$contact','$surname', '$names', '$age', '$date');";
+          $intclient = mysqli_query($conn,$queryclient);
 
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chpizza'";
+          //selecting from client table
+          $queryclient = "SELECT * FROM client WHERE Contact='$contact'";
+
+          $resultclient = mysqli_query($conn,$queryclient);
+
+          $rowclient = mysqli_fetch_array($resultclient)
+
+          $clienyid = $rowclient['ClientID'];
+
+          $clienycontact = $rowclient['Contact'];
+
+          //validating and inserting data in table meal
+          if(isset($_POST['pizza'])) { 
           
-          $resultfood = mysqli_query($conn,$queryfood);
+            $chpizza = mysqli_real_escape_string($conn,$_POST['pizza']);
 
-          $rowfood = mysqli_fetch_array($resultfood)
-
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName']; 
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chpizza'";
           
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
+            $resultfood = mysqli_query($conn,$queryfood);
 
-        } elseif(isset($_POST['pasta'])) {
+            $rowfood = mysqli_fetch_array($resultfood)
 
-          $chpasta = mysqli_real_escape_string($conn,$_POST['pasta']);
-
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chpasta'";
-
-          $resultfood = mysqli_query($conn,$queryfood);
-
-          $rowfood = mysqli_fetch_array($resultfood)
-
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName'];
-
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
-
-        } elseif(isset($_POST['pap-wors'])) {
-
-          $chpap = mysqli_real_escape_string($conn,$_POST['pap-wors']);
-
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chpap'";
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName']; 
           
-          $resultfood = mysqli_query($conn,$queryfood);
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
 
-          $rowfood = mysqli_fetch_array($resultfood)
+          } elseif(isset($_POST['pasta'])) {
 
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName'];
+            $chpasta = mysqli_real_escape_string($conn,$_POST['pasta']);
 
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chpasta'";
 
-        } elseif(isset($_POST['chicken-stir'])) {
+            $resultfood = mysqli_query($conn,$queryfood);
 
-          $chchicken = mysqli_real_escape_string($conn,$_POST['chicken-stir']);
+            $rowfood = mysqli_fetch_array($resultfood)
 
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chchicken'";
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName'];
 
-          $resultfood = mysqli_query($conn,$queryfood);
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
 
-          $rowfood = mysqli_fetch_array($resultfood)
+          } elseif(isset($_POST['pap-wors'])) {
 
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName'];
+            $chpap = mysqli_real_escape_string($conn,$_POST['pap-wors']);
 
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chpap'";
+          
+            $resultfood = mysqli_query($conn,$queryfood);
+
+            $rowfood = mysqli_fetch_array($resultfood)
+
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName'];
+
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
+
+          } elseif(isset($_POST['chicken-stir'])) {
+
+            $chchicken = mysqli_real_escape_string($conn,$_POST['chicken-stir']);
+
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chchicken'";
+
+            $resultfood = mysqli_query($conn,$queryfood);
+
+            $rowfood = mysqli_fetch_array($resultfood)
+
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName'];
+
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
 
 
-        } elseif(isset($_POST['beef-stir'])) {
+          } elseif(isset($_POST['beef-stir'])) {
 
-          $chbeef = mysqli_real_escape_string($conn,$_POST['beef-stir']);
+            $chbeef = mysqli_real_escape_string($conn,$_POST['beef-stir']);
 
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chbeef'";
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chbeef'";
 
-          $resultfood = mysqli_query($conn,$queryfood);
+            $resultfood = mysqli_query($conn,$queryfood);
 
-          $rowfood = mysqli_fetch_array($resultfood)
+            $rowfood = mysqli_fetch_array($resultfood)
 
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName'];
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName'];
 
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
 
+          } else {
 
-        } else {
+            $chother = mysqli_real_escape_string($conn,$_POST['other']);
 
-          $chother = mysqli_real_escape_string($conn,$_POST['other']);
+            $queryfood = "SELECT * FROM food WHERE FoodID='$chother'";
 
-          $queryfood = "SELECT * FROM food WHERE FoodID='$chother'";
+            $resultfood = mysqli_query($conn,$queryfood);
 
-          $resultfood = mysqli_query($conn,$queryfood);
+            $rowfood = mysqli_fetch_array($resultfood)
 
-          $rowfood = mysqli_fetch_array($resultfood)
+            $chpizza = $rowfood['FoodID'];
+            $chname =  $rowfood['FoodName'];
 
-          $chpizza = $rowfood['FoodID'];
-          $chname =  $rowfood['FoodName'];
+            $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
+            $inmeal = mysqli_query($conn,$insertmeal);
 
-          $insertmeal = "INSERT INTO meal (ClientID, Contact, FoodID, FooDName) VALUES ('$clienyid','$clienycontact', '$chpizza', '$chname');";
-          $inmeal = mysqli_query($conn,$insertmeal);
+          }
 
-        }
+          //codition to insert value in table activity and ratting
+          if(isset($_POST['eatout'])) {
 
+            $scale = mysqli_real_escape_string($conn,$_POST['eatout']);
+
+            $querysc = "SELECT * FROM scale WHERE ScaleID='$scale'";
+
+            $resultsc = mysqli_query($conn,$querysc);
+
+            $rowsc = mysqli_fetch_array($resultsc)
+
+            $scid = $rowsc['ScaleID'];
+            $scname =  $rowsc['ScaleName'];
+
+            $queryho = "SELECT * FROM hobby WHERE Hobby='1'";
+
+            $resultho = mysqli_query($conn,$queryho);
+
+            $rowho = mysqli_fetch_array($resultho)
+
+            $rdeat = $rowho['HobbyID'];
+            $rdname =  $rowho['HobbyName'];
+
+            $insertratting = "INSERT INTO ratting (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$scid','$scname', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertratting);
+
+            $insertact = "INSERT INTO activity (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$clienyid','$clienycontact', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertact);
            
 
-        echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
+          }elseif(isset($_POST['watchmovie'])) {
+
+            $scale = mysqli_real_escape_string($conn,$_POST['watchmovie']);
+
+            $querysc = "SELECT * FROM scale WHERE ScaleID='$scale'";
+
+            $resultsc = mysqli_query($conn,$querysc);
+
+            $rowsc = mysqli_fetch_array($resultsc)
+
+            $scid = $rowsc['ScaleID'];
+            $scname =  $rowsc['ScaleName'];
+
+            $queryho = "SELECT * FROM hobby WHERE Hobby='2'";
+
+            $resultho = mysqli_query($conn,$queryho);
+
+            $rowho = mysqli_fetch_array($resultho)
+
+            $rdeat = $rowho['HobbyID'];
+            $rdname =  $rowho['HobbyName'];
+
+            $insertratting = "INSERT INTO ratting (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$scid','$scname', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertratting);
+
+            $insertact = "INSERT INTO activity (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$clienyid','$clienycontact', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertact);
+            
+
+          }elseif(isset($_POST['watchtv'])) {
+
+            $scale = mysqli_real_escape_string($conn,$_POST['watchtv']);
+
+            $querysc = "SELECT * FROM scale WHERE ScaleID='$scale'";
+
+            $resultsc = mysqli_query($conn,$querysc);
+
+            $rowsc = mysqli_fetch_array($resultsc)
+
+            $scid = $rowsc['ScaleID'];
+            $scname =  $rowsc['ScaleName'];
+
+            $queryho = "SELECT * FROM hobby WHERE Hobby='3'";
+
+            $resultho = mysqli_query($conn,$queryho);
+
+            $rowho = mysqli_fetch_array($resultho)
+
+            $rdeat = $rowho['HobbyID'];
+            $rdname =  $rowho['HobbyName'];
+
+            $insertratting = "INSERT INTO ratting (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$scid','$scname', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertratting);
+
+            $insertact = "INSERT INTO activity (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$clienyid','$clienycontact', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertact);
+            
+
+          }else(isset($_POST['listenradio'])) {
+
+            $scale = mysqli_real_escape_string($conn,$_POST['listenradio']);
+
+            $querysc = "SELECT * FROM scale WHERE ScaleID='$scale'";
+
+            $resultsc = mysqli_query($conn,$querysc);
+
+            $rowsc = mysqli_fetch_array($resultsc)
+
+            $scid = $rowsc['ScaleID'];
+            $scname =  $rowsc['ScaleName'];
+
+            $queryho = "SELECT * FROM hobby WHERE Hobby='4'";
+
+            $resultho = mysqli_query($conn,$queryho);
+
+            $rowho = mysqli_fetch_array($resultho)
+
+            $rdeat = $rowho['HobbyID'];
+            $rdname =  $rowho['HobbyName'];
+
+            $insertratting = "INSERT INTO ratting (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$scid','$scname', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertratting);
+
+            $insertact = "INSERT INTO activity (ScaleID, ScaleName, HobbyID, HobbyName) VALUES ('$clienyid','$clienycontact', '$rdeat', '$rdname');";
+            $inmeal = mysqli_query($conn,$insertact);
+            
+          }
+
+         
+        }
+        
+        echo '<script type="text/JavaScript"> window.location= "index.php" ; </script>';
       }
 
-      /*if(empty($_POST["eatout"]) || empty($_POST["watchmovie"]) || empty($_POST["watchtv"]) || empty($_POST["listenradio"])) {
-
-        $reat = " Click at least one radio button in row 1 in the table' '";
-        $rmovie = "Click at least one radio button in row 2 in the table' '";
-        $rtv = "Click at least one radio button in row 3 in the ' ' ";
-        $rradio = "Click at least one radio button in row 1 in the table' '";
-
-        echo '<script type="text/javaScript">alert("'.$reat.$rmovie.$rtv.$rradio.'");</script>';
-        echo '<script type="text/JavaScript"> window.location= "take_survey.php" ; </script>';
-
-      }else {
-        
-        $reat = mysqli_real_escape_string($conn,$_POST['eatout']);
-        $rmovie = mysqli_real_escape_string($conn,$_POST['watchmovie']);
-        $rtv = mysqli_real_escape_string($conn,$_POST['watchtv']);
-        $rradio = mysqli_real_escape_string($conn,$_POST['listenradio']);
-
-
-        echo '<script type="text/JavaScript"> alert("You are leaving this page to the main page"); window.location= "index.php" ; </script>';
-      }*/
-      
-
-
+   
     }
 
-    
-
-    //creat constant values
-    define('FIRST', "Strongly Agree");
-    define('SEC', "Agree");
-    define('THERD', "Neutral");
-    define('FOUTH', "Disagree");
-    define('FIRTH', "Strongly disagree");
-
-    //creat constant values
-    define('EATOUT', "I like to eat out");
-    define('WATCHMOVIE', "I like to watch movies");
-    define('WATCHTV', "I like to watch TV");
-    define('LISTENRADIO', "I like to listen to the radio");
-    
-   // if(isset)
-   
    
   } 
 
